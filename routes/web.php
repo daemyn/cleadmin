@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('licences/{id}/confirmer', 'LicenceController@confirmer')->name('licences.confirmer');
+    Route::resource('licences', 'LicenceController');
+});
