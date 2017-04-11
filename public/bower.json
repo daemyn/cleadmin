@@ -1,0 +1,10 @@
+{
+  "name": "cleadmin",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
