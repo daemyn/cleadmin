@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mar 11 Avril 2017 à 17:42
+-- Généré le :  Mar 11 Avril 2017 à 18:20
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  7.1.1
 
@@ -41,15 +41,60 @@ CREATE TABLE `licences` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Contenu de la table `licences`
+-- Structure de la table `migrations`
 --
 
-INSERT INTO `licences` (`id`, `enseigne`, `siret`, `nombre_postes`, `num_magasin`, `duree_utilisation`, `licence`, `code_licence`, `etat`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Squirro', '123456789', 3, 2, 12, 'CDW6qPKm', 'cTSWh4qONimnTn3N2xOG8JUirFA4kNYW', 1, NULL, '2017-04-11 17:09:06', '2017-04-11 17:37:50'),
-(2, 'CleaNetwrok', '9876543210', 1, 1, 36, 'xY2vH5MW', 'DL5skKTIiAFEgGZrwyomd2Etof3dIOLm', 1, NULL, '2017-04-11 17:09:40', '2017-04-11 17:37:58'),
-(3, 'Klikx', '123123456789', 1, 1, NULL, 'pCHuRe9k', 'XuMM1Sa4iXzx52354UZFqvOsHdO7rzI4', 1, NULL, '2017-04-11 17:10:27', '2017-04-11 17:10:27'),
-(5, 'Klikx2', '2222222', 1, 1, NULL, 'BPRiCcMF', 'Mci1Q4ZxYstjMh0kmFP0Hxy6lI1A8o0y', 0, NULL, '2017-04-11 17:11:44', '2017-04-11 17:11:44');
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Contenu de la table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Contenu de la table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Olivier', 'olivier@klikx.lol', '$2y$10$8vmRa5YgSNOMJHtBVnnrCevI5ZEGUPRXPaKuFK0NPhVJhmXy.kuA.', 'GoHIRGpIfFk2DDYiT1DfbhC6WXRzJ4m2JG2LsnSy8OzNFLzsShCsLcXlSBDl', '2017-04-11 16:45:57', '2017-04-11 16:45:57');
 
 --
 -- Index pour les tables exportées
@@ -62,6 +107,25 @@ ALTER TABLE `licences`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -69,7 +133,17 @@ ALTER TABLE `licences`
 -- AUTO_INCREMENT pour la table `licences`
 --
 ALTER TABLE `licences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
