@@ -11,9 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+@yield('styles')
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -45,7 +48,15 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if(Auth::check())
-                        <li><a href="{{ route('licences.index') }}">Licences</a></li>
+                        @if(Auth::user()->role == 'admin')
+                            <li><a href="{{ route('licences.index') }}"><i class="fa fa-id-card"></i> Licences</a></li>
+                            <li><a href="{{ route('revendeurs.index') }}"><i class="fa fa-group"></i> Revendeurs</a>
+                            </li>
+                        @endif
+                        @if(Auth::user()->role == 'revendeur')
+                            <li><a href="{{ route('revendeurs.licences') }}"><i class="fa fa-id-card"></i> Licences</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
 
@@ -87,5 +98,9 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('components/bootstrap-validator/dist/validator.min.js') }}"></script>
+<script src="{{ asset('components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@yield('scripts')
 </body>
 </html>

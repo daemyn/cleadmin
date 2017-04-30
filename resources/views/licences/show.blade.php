@@ -19,11 +19,7 @@
                             </tr>
                             <tr>
                                 <td>Nombre de postes</td>
-                                <td>{{ $licence->nombre_poste }}</td>
-                            </tr>
-                            <tr>
-                                <td>N° Magasin</td>
-                                <td>{{ $licence->num_magasin}}</td>
+                                <td>{{ $licence->nombre_postes }}</td>
                             </tr>
                             <tr>
                                 <td>Durée d'utilisation</td>

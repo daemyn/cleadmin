@@ -22,4 +22,6 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('licences/{id}/confirmer', 'LicenceController@confirmer')->name('licences.confirmer');
     Route::resource('licences', 'LicenceController');
+    Route::get('revendeurs/licences', ['as' => 'revendeurs.licences', 'uses' => 'RevendeursController@licences']);
+    Route::resource('revendeurs', 'RevendeursController');
 });

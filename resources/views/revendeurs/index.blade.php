@@ -5,48 +5,42 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Liste des licences</div>
+                    <div class="panel-heading">Liste des revendeurs</div>
 
                     <div class="panel-body">
+                        <div class="form-group">
+                            <a href="{{ route('revendeurs.create') }}" class="btn btn-primary">Ajouter</a>
+                        </div>
                         <table class="table dtable">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Enseigne</th>
-                                <th>Licence</th>
-                                <th>Durée d'utilisation</th>
-                                <th>Code Licence</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Date d'inscription</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($licences as $e)
-                                <tr class="{{ ($e->etat) ? 'success' : '' }}">
+                            @foreach($revendeurs as $e)
+                                <tr>
                                     <td>{{ $e->id }}</td>
-                                    <td>{{ $e->enseigne }}</td>
-                                    <td>{{ $e->licence }}</td>
-                                    <td>{{ $e->duree_utilisation }} mois</td>
-                                    <td>{{ $e->code_licence }}</td>
+                                    <td>{{ $e->name }}</td>
+                                    <td>{{ $e->email }}</td>
+                                    <td>{{ $e->created_at->format('d-m-Y H:i') }}</td>
                                     <td>
-                                        <a href="{{ route('licences.show', $e) }}" class="btn btn-xs btn-default">Voir</a>
-                                        @if(!$e->etat)
-                                            <a href="{{ route('licences.confirmer', $e->id) }}" class="btn btn-xs btn-success">Confirmer</a>
-                                        @endif
+                                        <a href="{{ route('revendeurs.show', $e) }}" class="btn btn-xs btn-default">Voir</a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="text-center">
-                            {{ $licences->links() }}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
 
 @section('scripts')
     <script>
