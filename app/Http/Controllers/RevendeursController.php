@@ -33,7 +33,7 @@ class RevendeursController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +54,7 @@ class RevendeursController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -65,39 +65,47 @@ class RevendeursController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $revendeur = User::where('role', 'revendeur')->where('id', $id)->first();
+        return view('revendeurs.edit', compact('revendeur'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'password' => 'confirmed',
+        ]);
+
+        $data = $request->only(['name', 'description', 'adresse', 'code_postal', 'ville', 'email']);
+        if (!empty($request->password) && $request->password == $request->password_confirmation) {
+            $data['password'] = bcrypt($request->password);
+        }
+        User::where('id', $id)->update($data);
+        return redirect()->route('revendeurs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function licences(){
-        $licences = Licence::where('user_id', Auth::user()->id)->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
-        return view('revendeurs.licences', compact('licences'));
+        User::where('role', 'revendeur')->where('id', $id)->delete();
+        return redirect()->route('revendeurs.index');
     }
 }

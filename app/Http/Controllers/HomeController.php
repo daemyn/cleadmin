@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect()->route('licences.index');
-        //return view('home');
+        return view('home');
     }
 }

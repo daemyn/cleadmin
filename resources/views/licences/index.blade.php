@@ -13,8 +13,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Enseigne</th>
-                                <th>Licence</th>
                                 <th>Durée d'utilisation</th>
+                                <th>Licence</th>
                                 <th>Code Licence</th>
                                 <th></th>
                             </tr>
@@ -24,22 +24,21 @@
                                 <tr class="{{ ($e->etat) ? 'success' : '' }}">
                                     <td>{{ $e->id }}</td>
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ $e->licence }}</td>
                                     <td>{{ $e->duree_utilisation }} mois</td>
+                                    <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
                                     <td>
-                                        <a href="{{ route('licences.show', $e) }}" class="btn btn-xs btn-default">Voir</a>
+                                        <a href="{{ route('licences.show', $e) }}"
+                                           class="btn btn-xs btn-default">Voir</a>
                                         @if(!$e->etat)
-                                            <a href="{{ route('licences.confirmer', $e->id) }}" class="btn btn-xs btn-success">Confirmer</a>
+                                            <a href="{{ route('licences.confirmer', $e->id) }}"
+                                               class="btn btn-xs btn-success">Confirmer</a>
                                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="text-center">
-                            {{ $licences->links() }}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +49,7 @@
 
 @section('scripts')
     <script>
-        $(function(){
+        $(function () {
             $('.dtable').dataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"

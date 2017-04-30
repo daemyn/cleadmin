@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Liste des licences</div>
+                    <div class="panel-heading">Licence {{ $licence->id }}</div>
 
                     <div class="panel-body">
                         <table class="table table-striped">
@@ -31,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td>Code licence</td>
-                                <td>{{ $licence->code_licence}}</td>
+                                <td>{{ ($licence->etat) ? $licence->code_licence : '-' }}</td>
                             </tr>
                             <tr>
                                 <td>Date d'activation</td>
@@ -43,7 +43,13 @@
                                     @if($licence->etat)
                                         <a href="javascript:void(0)" class="btn btn-success">Confirmée</a>
                                     @else
-                                        <a href="{{ route('licences.confirmer', $licence->id) }}" class="btn btn-warning">Non confirmée</a>
+                                        @if(Auth::user()->role == 'admin')
+                                            <a href="{{ route('licences.confirmer', $licence->id) }}"
+                                               class="btn btn-warning">Non confirmée</a>
+                                        @else
+                                            <a href="javascript:void(0)"
+                                               class="btn btn-warning">Non confirmée</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>

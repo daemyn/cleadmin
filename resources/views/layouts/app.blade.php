@@ -14,6 +14,11 @@
     <link href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .form-inline {
+            display: inline;
+        }
+    </style>
 @yield('styles')
 
 <!-- Scripts -->
@@ -48,13 +53,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if(Auth::check())
+                        <li><a href="{{ route('licences.index') }}"><i class="fa fa-id-card"></i> Licences</a></li>
                         @if(Auth::user()->role == 'admin')
-                            <li><a href="{{ route('licences.index') }}"><i class="fa fa-id-card"></i> Licences</a></li>
                             <li><a href="{{ route('revendeurs.index') }}"><i class="fa fa-group"></i> Revendeurs</a>
-                            </li>
-                        @endif
-                        @if(Auth::user()->role == 'revendeur')
-                            <li><a href="{{ route('revendeurs.licences') }}"><i class="fa fa-id-card"></i> Licences</a>
                             </li>
                         @endif
                     @endif

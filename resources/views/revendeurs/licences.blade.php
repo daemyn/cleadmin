@@ -8,28 +8,33 @@
                     <div class="panel-heading">Mes licences</div>
 
                     <div class="panel-body">
+
+                        <div class="form-group">
+                            <a href="{{ route('licences.create') }}" class="btn btn-primary">Demander une licence</a>
+                        </div>
+
                         <table class="table dtable">
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Enseigne</th>
-                                <th>Licence</th>
                                 <th>Durée d'utilisation</th>
+                                <th>Licence</th>
                                 <th>Code Licence</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($licences as $e)
-                                <tr class="{{ ($e->etat) ? 'success' : '' }}">
+                                <tr class="{{ ($e->etat) ? '' : 'warning' }}">
                                     <td>{{ $e->id }}</td>
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ $e->licence }}</td>
                                     <td>{{ $e->duree_utilisation }} mois</td>
-                                    <td>{{ $e->code_licence }}</td>
+                                    <td>{{ $e->licence }}</td>
+                                    <td>{{ ($e->etat) ? $e->code_licence : '-' }}</td>
                                     <td>
                                         <a href="{{ route('licences.show', $e) }}"
-                                           class="btn btn-xs btn-default">Voir</a>
+                                           class="btn btn-xs btn-default"><i class="fa fa-file-text-o"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

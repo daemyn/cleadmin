@@ -29,7 +29,13 @@
                                     <td>{{ $e->email }}</td>
                                     <td>{{ $e->created_at->format('d-m-Y H:i') }}</td>
                                     <td>
-                                        <a href="{{ route('revendeurs.show', $e) }}" class="btn btn-xs btn-default">Voir</a>
+                                        <a href="{{ route('revendeurs.edit', $e) }}"
+                                           class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                                        <form action="{{ route('revendeurs.destroy', $e->id) }}" class="form-inline form-delete" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -44,7 +50,7 @@
 
 @section('scripts')
     <script>
-        $(function(){
+        $(function () {
             $('.dtable').dataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
