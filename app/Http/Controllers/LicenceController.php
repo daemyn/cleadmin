@@ -75,7 +75,7 @@ class LicenceController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch);
         // End sending data
-        
+
 
         return redirect()->route('licences.show', $licence);
     }
