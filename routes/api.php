@@ -30,3 +30,8 @@ Route::post('licences', function (Request $request) {
     return response()->json($licence);
 });
 
+
+Route::get('licences', function (Request $request) {
+    $licence = \App\Licence::where('licence', $request->licence)->where('code_licence', $request->code)->first();
+    return response()->json($licence);
+});
