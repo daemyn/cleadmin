@@ -60,6 +60,23 @@ class LicenceController extends Controller
             $data['etat'] = 1;
         }
         $licence = Licence::create($data);
+
+
+        // SEND DATA TO SYNC APP
+        $url = 'http://37.59.49.137:8888/accounts';
+        $ch = curl_init($url);
+        $jsonData = array(
+            'license' => $licence->licence,
+            'password' => $licence->code_licence
+        );
+        $jsonDataEncoded = json_encode($jsonData);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $result = curl_exec($ch);
+        // End sending data
+        
+
         return redirect()->route('licences.show', $licence);
     }
 
