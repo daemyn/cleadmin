@@ -102,6 +102,15 @@
 <script src="{{ asset('components/bootstrap-validator/dist/validator.min.js') }}"></script>
 <script src="{{ asset('components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+    $(function(){
+        $('.form-delete').submit(function(e){
+            if(!confirm('Êtes vous sûr d\'effectuer cette action?')){
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 @yield('scripts')
 </body>
 </html>

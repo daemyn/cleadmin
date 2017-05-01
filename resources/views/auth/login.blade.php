@@ -7,6 +7,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Authentification</div>
                 <div class="panel-body">
+
+                    <div class="row form-group text-center">
+                        <div class="col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
+                            <img src="{{ asset('img/klikx.png') }}" class="img-responsive" alt="Klikx">
+                        </div>
+                    </div>
+
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 

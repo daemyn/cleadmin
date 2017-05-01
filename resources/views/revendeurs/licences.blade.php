@@ -26,10 +26,10 @@
                             </thead>
                             <tbody>
                             @foreach($licences as $e)
-                                <tr class="{{ ($e->etat) ? '' : 'warning' }}">
+                                <tr class="{{ ($e->etat) ? 'success' : 'warning' }}">
                                     <td>{{ $e->id }}</td>
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ $e->duree_utilisation }} mois</td>
+                                    <td>{{ ($e->duree_utilisation) ? $e->duree_utilisation . ' mois' : 'Indéterminée' }}</td>
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ ($e->etat) ? $e->code_licence : '-' }}</td>
                                     <td>

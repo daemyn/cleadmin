@@ -23,7 +23,7 @@
                             </tr>
                             <tr>
                                 <td>Durée d'utilisation</td>
-                                <td>{{ $licence->duree_utilisation }}</td>
+                                <td>{{ ($licence->duree_utilisation) ? $licence->duree_utilisation . ' mois' : 'Indéterminée' }}</td>
                             </tr>
                             <tr>
                                 <td>Licence</td>
@@ -44,7 +44,7 @@
                                         <a href="javascript:void(0)" class="btn btn-success">Confirmée</a>
                                     @else
                                         @if(Auth::user()->role == 'admin')
-                                            <a href="{{ route('licences.confirmer', $licence->id) }}"
+                                            <a href="{{ route('licences.confirmer', [$licence->id, 'token' => csrf_token()]) }}"
                                                class="btn btn-warning">Non confirmée</a>
                                         @else
                                             <a href="javascript:void(0)"
@@ -54,6 +54,14 @@
                                 </td>
                             </tr>
                         </table>
+
+                        @if(Auth::user()->role == 'admin')
+                            <form action="{{ route('licences.destroy', $licence->id) }}" method="post" class="form-delete">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button class="btn btn-danger"><i class="fa fa-trash"></i> Supprimer</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

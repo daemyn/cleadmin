@@ -16,7 +16,7 @@ class LicenceController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $licences = Licence::orderBy('etat')->orderBy('updated_at', 'DESC')->get();
+            $licences = Licence::with('revendeur')->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
             return view('licences.index', compact('licences'));
         } else {
             $licences = Licence::where('user_id', Auth::user()->id)->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
@@ -44,6 +44,10 @@ class LicenceController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'siret' => 'required|unique:licences'
+        ]);
+
         $data = $request->only(['enseigne', 'siret', 'nombre_postes', 'duree_utilisation']);
         $data['licence'] = strtoupper(str_random(8));
         while (Licence::where('licence', $data['licence'])->count() > 0) {
@@ -52,8 +56,11 @@ class LicenceController extends Controller
         $data['duree_utilisation'] = (empty($data['duree_utilisation'])) ? NULL : $data['duree_utilisation'];
         $data['code_licence'] = strtoupper(str_random(8));
         $data['user_id'] = Auth::user()->id;
-        Licence::create($data);
-        return redirect()->route('licences.index');
+        if(Auth::user()->role == 'admin'){
+            $data['etat'] = 1;
+        }
+        $licence = Licence::create($data);
+        return redirect()->route('licences.show', $licence);
     }
 
     /**
@@ -69,9 +76,11 @@ class LicenceController extends Controller
         return view('licences.show', compact('licence'));
     }
 
-    public function confirmer($id)
+    public function confirmer(Request $request, $id)
     {
-        Licence::where('id', $id)->update(['etat' => 1]);
+        if(csrf_token() == $request->token && Auth::user()->role == 'admin'){
+            Licence::where('id', $id)->update(['etat' => 1]);
+        }
         return redirect()->back();
     }
 
@@ -106,6 +115,7 @@ class LicenceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Licence::where('id', $id)->delete();
+        return redirect()->route('licences.index');
     }
 }

@@ -48,7 +48,7 @@
                                 <label for="nombre_postes" class="col-md-4 control-label">Nombre de postes</label>
 
                                 <div class="col-md-6">
-                                    <input id="nombre_postes" type="text" class="form-control" name="nombre_postes" value="{{ old('nombre_postes') }}" required>
+                                    <input id="nombre_postes" type="number" class="form-control" name="nombre_postes" value="{{ old('nombre_postes') }}" required>
 
                                     @if ($errors->has('nombre_postes'))
                                         <span class="help-block">
