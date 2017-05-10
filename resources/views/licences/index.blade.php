@@ -43,7 +43,9 @@
                                     <td>{{ $e->code_licence }}</td>
                                     <td>
                                         <a href="{{ route('licences.show', $e) }}"
-                                           class="btn btn-xs btn-default"><i class="fa fa-file-text-o"></i></a>
+                                           class="btn btn-xs btn-primary"><i class="fa fa-file-text-o"></i></a>
+                                        <a href="{{ route('licences.edit', $e) }}"
+                                           class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                                         @if(!$e->etat)
                                             <a href="{{ route('licences.confirmer', [$e->id, 'token' => csrf_token()]) }}"
                                                class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>

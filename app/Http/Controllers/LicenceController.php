@@ -124,7 +124,9 @@ class LicenceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $licence = Licence::find($id);
+        $this->authorize('update', $licence);
+        return view('licences.edit', compact('licence'));
     }
 
     /**
@@ -136,7 +138,17 @@ class LicenceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'siret' => 'required|unique:licences,siret,'.$id
+        ]);
+
+        $licence = Licence::find($id);
+        $this->authorize('update', $licence);
+
+        $data = $request->only(['enseigne', 'siret', 'nombre_postes', 'duree_utilisation']);
+        $data['duree_utilisation'] = (empty($data['duree_utilisation'])) ? NULL : $data['duree_utilisation'];
+        $licence->update($data);
+        return redirect()->route('licences.index');
     }
 
     /**
