@@ -6,15 +6,11 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Liste des licences
-                        <a href="{{ route('licences.index', ['trash' => 1]) }}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
+                        Liste des licences supprimées
+                        <a href="{{ route('licences.index') }}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-list"></i> Toutes les licences</a>
                     </div>
 
                     <div class="panel-body">
-
-                        <div class="form-group">
-                            <a href="{{ route('licences.create') }}" class="btn btn-primary">Créer une licence</a>
-                        </div>
 
                         <table class="table dtable">
                             <thead>
@@ -30,7 +26,7 @@
                             </thead>
                             <tbody>
                             @foreach($licences as $e)
-                                <tr class="{{ ($e->etat) ? 'success' : 'warning' }}">
+                                <tr class="danger">
                                     <td>{{ $e->id }}</td>
                                     @if($e->revendeur && $e->revendeur->role == "revendeur")
                                         <td>{{ $e->revendeur->name }}</td>
@@ -42,12 +38,8 @@
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
                                     <td>
-                                        <a href="{{ route('licences.show', $e) }}"
-                                           class="btn btn-xs btn-default"><i class="fa fa-file-text-o"></i></a>
-                                        @if(!$e->etat)
-                                            <a href="{{ route('licences.confirmer', [$e->id, 'token' => csrf_token()]) }}"
-                                               class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
-                                        @endif
+                                        <a href="{{ route('licences.restore', [$e->id, 'token' => csrf_token()]) }}"
+                                           class="btn btn-xs btn-success"><i class="fa fa-refresh"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

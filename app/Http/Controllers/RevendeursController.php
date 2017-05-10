@@ -14,10 +14,16 @@ class RevendeursController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $revendeurs = User::where('role', 'revendeur')->get();
-        return view('revendeurs.index', compact('revendeurs'));
+        $trash = $request->get('trash');
+        if ($trash && $trash == 1 && Auth::user()->role == 'admin') {
+            $revendeurs = User::where('role', 'revendeur')->onlyTrashed()->get();
+            return view('revendeurs.trash', compact('revendeurs'));
+        }else{
+            $revendeurs = User::where('role', 'revendeur')->get();
+            return view('revendeurs.index', compact('revendeurs'));
+        }
     }
 
     /**
@@ -95,6 +101,17 @@ class RevendeursController extends Controller
         }
         User::where('id', $id)->update($data);
         return redirect()->route('revendeurs.index');
+    }
+
+
+    public function restore(Request $request, $id)
+    {
+        if (csrf_token() == $request->token && Auth::user()->role == 'admin') {
+            User::withTrashed()
+                ->where('id', $id)
+                ->restore();
+        }
+        return redirect()->back();
     }
 
     /**

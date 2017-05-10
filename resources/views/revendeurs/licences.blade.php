@@ -54,7 +54,8 @@
             $('.dtable').dataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
-                }
+                },
+                "pageLength": 100
             });
         });
     </script>

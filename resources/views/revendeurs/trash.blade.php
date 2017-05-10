@@ -7,13 +7,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Liste des revendeurs
-                        <a href="{{ route('revendeurs.index', ['trash' => 1]) }}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
+                        <a href="{{ route('revendeurs.index') }}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-list"></i> Tous les revendeurs</a>
                     </div>
 
                     <div class="panel-body">
-                        <div class="form-group">
-                            <a href="{{ route('revendeurs.create') }}" class="btn btn-primary">Ajouter</a>
-                        </div>
                         <table class="table dtable">
                             <thead>
                             <tr>
@@ -32,13 +29,8 @@
                                     <td>{{ $e->email }}</td>
                                     <td>{{ $e->created_at->format('d-m-Y H:i') }}</td>
                                     <td>
-                                        <a href="{{ route('revendeurs.edit', $e) }}"
-                                           class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
-                                        <form action="{{ route('revendeurs.destroy', $e->id) }}" class="form-inline form-delete" method="post">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
-                                        </form>
+                                        <a href="{{ route('revendeurs.restore', [$e->id, 'token' => csrf_token()]) }}"
+                                           class="btn btn-xs btn-success"><i class="fa fa-refresh"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

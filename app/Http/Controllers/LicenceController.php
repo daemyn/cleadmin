@@ -13,16 +13,21 @@ class LicenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->role == 'admin') {
-            $licences = Licence::with('revendeur')->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
-            return view('licences.index', compact('licences'));
+        $trash = $request->get('trash');
+        if ($trash && $trash == 1 && Auth::user()->role == 'admin') {
+            $licences = Licence::with('revendeur')->onlyTrashed()->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
+            return view('licences.trash', compact('licences'));
         } else {
-            $licences = Licence::where('user_id', Auth::user()->id)->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
-            return view('revendeurs.licences', compact('licences'));
+            if (Auth::user()->role == 'admin') {
+                $licences = Licence::with('revendeur')->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
+                return view('licences.index', compact('licences'));
+            } else {
+                $licences = Licence::where('user_id', Auth::user()->id)->orderBy('etat')->orderBy('updated_at', 'DESC')->get();
+                return view('revendeurs.licences', compact('licences'));
+            }
         }
-
     }
 
     /**
@@ -56,7 +61,7 @@ class LicenceController extends Controller
         $data['duree_utilisation'] = (empty($data['duree_utilisation'])) ? NULL : $data['duree_utilisation'];
         $data['code_licence'] = strtoupper(str_random(8));
         $data['user_id'] = Auth::user()->id;
-        if(Auth::user()->role == 'admin'){
+        if (Auth::user()->role == 'admin') {
             $data['etat'] = 1;
         }
         $licence = Licence::create($data);
@@ -95,8 +100,18 @@ class LicenceController extends Controller
 
     public function confirmer(Request $request, $id)
     {
-        if(csrf_token() == $request->token && Auth::user()->role == 'admin'){
+        if (csrf_token() == $request->token && Auth::user()->role == 'admin') {
             Licence::where('id', $id)->update(['etat' => 1]);
+        }
+        return redirect()->back();
+    }
+
+    public function restore(Request $request, $id)
+    {
+        if (csrf_token() == $request->token && Auth::user()->role == 'admin') {
+            Licence::withTrashed()
+                ->where('id', $id)
+                ->restore();
         }
         return redirect()->back();
     }
