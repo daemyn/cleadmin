@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         .form-inline {
@@ -102,6 +103,12 @@
 <script src="{{ asset('components/bootstrap-validator/dist/validator.min.js') }}"></script>
 <script src="{{ asset('components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('components/datatables.net-buttons/js/dataTables.buttons.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+<script src="{{ asset('components/datatables.net-buttons/js/buttons.html5.js') }}"></script>
+<script src="{{ asset('components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
 <script>
     $(function(){
         $('.form-delete').submit(function(e){

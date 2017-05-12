@@ -7,7 +7,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Liste des licences
-                        <a href="{{ route('licences.index', ['trash' => 1]) }}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
+                        <a href="{{ route('licences.index', ['trash' => 1]) }}"
+                           class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
                     </div>
 
                     <div class="panel-body">
@@ -22,7 +23,7 @@
                                 <th>#</th>
                                 <th>Revendeur</th>
                                 <th>Enseigne</th>
-                                <th>Durée d'utilisation</th>
+                                <th>Date d'expiration</th>
                                 <th>Licence</th>
                                 <th>Code Licence</th>
                                 <th></th>
@@ -38,7 +39,7 @@
                                         <td>CleaNetwork</td>
                                     @endif
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ ($e->duree_utilisation) ? $e->duree_utilisation . ' mois' : 'Indéterminée' }}</td>
+                                    <td>{{ $e->date_expiration }}</td>
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
                                     <td>
@@ -66,12 +67,17 @@
 @section('scripts')
     <script>
         $(function () {
-            $('.dtable').dataTable({
+            $('.dtable').DataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
                 },
-                "pageLength": 100
+                "pageLength": 100,
+                "order": [[0, "desc"]],
+                dom: 'Bfrtip',
+                buttons: [
+                    'excelHtml5', 'pdfHtml5'
+                ]
             });
-        });
+        })
     </script>
 @endsection

@@ -30,6 +30,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('site') ? ' has-error' : '' }}">
+                                <label for="site" class="col-md-4 control-label">Site</label>
+
+                                <div class="col-md-6">
+                                    <input id="site" type="text" class="form-control" name="site" value="{{ old('site') }}" placeholder="Si Multi-Sites">
+
+                                    @if ($errors->has('site'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('site') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('siret') ? ' has-error' : '' }}">
                                 <label for="siret" class="col-md-4 control-label">Siret</label>
 

@@ -37,6 +37,10 @@
                                 <td>Date d'activation</td>
                                 <td>{{ $licence->created_at->format('d-m-Y H:i') }}</td>
                             </tr>
+                            <tr class="info">
+                                <td>Date d'expiration</td>
+                                <td>{{ $licence->date_expiration }}</td>
+                            </tr>
                             <tr>
                                 <td>Etat</td>
                                 <td>
@@ -56,7 +60,8 @@
                         </table>
 
                         @if(Auth::user()->role == 'admin')
-                            <form action="{{ route('licences.destroy', $licence->id) }}" method="post" class="form-delete">
+                            <form action="{{ route('licences.destroy', $licence->id) }}" method="post"
+                                  class="form-delete">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <button class="btn btn-danger"><i class="fa fa-trash"></i> Supprimer</button>

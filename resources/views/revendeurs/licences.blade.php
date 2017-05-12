@@ -18,7 +18,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Enseigne</th>
-                                <th>Durée d'utilisation</th>
+                                <th>Date d'expiration</th>
                                 <th>Licence</th>
                                 <th>Code Licence</th>
                                 <th></th>
@@ -29,7 +29,7 @@
                                 <tr class="{{ ($e->etat) ? 'success' : 'warning' }}">
                                     <td>{{ $e->id }}</td>
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ ($e->duree_utilisation) ? $e->duree_utilisation . ' mois' : 'Indéterminée' }}</td>
+                                    <td>{{ $e->date_expiration }}</td>
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ ($e->etat) ? $e->code_licence : '-' }}</td>
                                     <td>
@@ -55,7 +55,8 @@
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
                 },
-                "pageLength": 100
+                "pageLength": 100,
+                "order": [[ 0, "desc" ]]
             });
         });
     </script>
