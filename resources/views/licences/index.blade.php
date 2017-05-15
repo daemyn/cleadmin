@@ -23,9 +23,10 @@
                                 <th>#</th>
                                 <th>Revendeur</th>
                                 <th>Enseigne</th>
-                                <th>Date d'expiration</th>
                                 <th>Licence</th>
                                 <th>Code Licence</th>
+                                <th>Site</th>
+                                <th>Expiration</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -39,9 +40,10 @@
                                         <td>CleaNetwork</td>
                                     @endif
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ $e->date_expiration }}</td>
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
+                                    <td>{{ (!empty($e->site)) ? $e->site : '-' }}</td>
+                                    <td>{{ $e->date_expiration }}</td>
                                     <td>
                                         <a href="{{ route('licences.show', $e) }}"
                                            class="btn btn-xs btn-primary"><i class="fa fa-file-text-o"></i></a>
@@ -72,7 +74,7 @@
                     "url": "{{ asset('js/French.json') }}"
                 },
                 "pageLength": 100,
-                "order": [[0, "desc"]],
+                "order": [[7, "desc"]],
                 dom: 'Bfrtip',
                 buttons: [
                     'excelHtml5', 'pdfHtml5'

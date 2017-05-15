@@ -162,8 +162,9 @@ class LicenceController extends Controller
 
         $data = $request->only(['enseigne', 'siret', 'nombre_postes', 'duree_utilisation', 'site']);
         $data['duree_utilisation'] = (empty($data['duree_utilisation'])) ? NULL : $data['duree_utilisation'];
+        $data['code_licence'] = strtoupper(str_random(8));
         $licence->update($data);
-        return redirect()->route('licences.index');
+        return redirect()->route('licences.show', $id);
     }
 
     /**
