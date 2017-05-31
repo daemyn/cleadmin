@@ -26,6 +26,13 @@
                                 <th>Licence</th>
                                 <th>Code Licence</th>
                                 <th>Site</th>
+                                <th>Code naf</th>
+                                <th>Numéro tva</th>
+                                <th>Téléphone</th>
+                                <th>Adresse</th>
+                                <th>Code postal</th>
+                                <th>Ville</th>
+                                <th>Pays</th>
                                 <th>Expiration</th>
                                 <th></th>
                             </tr>
@@ -43,6 +50,13 @@
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
                                     <td>{{ (!empty($e->site)) ? $e->site : '-' }}</td>
+                                    <td>{{ $e->code_naf }}</td>
+                                    <td>{{ $e->numero_tva }}</td>
+                                    <td>{{ $e->telephone }}</td>
+                                    <td>{{ $e->adresse }}</td>
+                                    <td>{{ $e->code_postal }}</td>
+                                    <td>{{ $e->ville }}</td>
+                                    <td>{{ $e->pays }}</td>
                                     <td>{{ $e->date_expiration }}</td>
                                     <td>
                                         <a href="{{ route('licences.show', $e) }}"
