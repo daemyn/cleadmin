@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Licence extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['enseigne', 'siret', 'nombre_postes', 'duree_utilisation', 'licence', 'code_licence', 'user_id', 'etat', 'site'];
+    protected $fillable = ['enseigne', 'siret','code_naf','numero_tva','telephone','adresse','code_postal','ville','pays', 'nombre_postes', 'duree_utilisation', 'licence', 'code_licence', 'user_id', 'etat', 'site'];
     protected $appends = ['date_expiration'];
 
     public function revendeur()

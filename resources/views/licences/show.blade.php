@@ -18,6 +18,35 @@
                                 <td>{{ $licence->siret}}</td>
                             </tr>
                             <tr>
+                                <td>Code naf</td>
+                                <td>{{ $licence->code_naf}}</td>
+                            </tr>
+                            <tr>
+                                <td>Numéro tva</td>
+                                <td>{{ $licence->numero_tva}}</td>
+                            </tr>
+                            <tr>
+                                <td>Téléphone</td>
+                                <td>{{ $licence->telephone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Adresse</td>
+                                <td>{{ $licence->adresse}}</td>
+                            </tr>
+                            <tr>
+                                <td>Code postal</td>
+                                <td>{{ $licence->code_postal}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ville</td>
+                                <td>{{ $licence->ville}}</td>
+                            </tr>
+                            <tr>
+                                <td>Pays</td>
+                                <td>{{ $licence->pays}}</td>
+                            </tr>
+
+                            <tr>
                                 <td>Nombre de postes</td>
                                 <td>{{ $licence->nombre_postes }}</td>
                             </tr>

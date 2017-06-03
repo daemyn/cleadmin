@@ -53,7 +53,8 @@ class LicenceController extends Controller
             'siret' => 'required|unique:licences'
         ]);
         $user = Auth::user();
-        $data = $request->only(['enseigne', 'siret', 'nombre_postes', 'duree_utilisation', 'site']);
+        $data = $request->only(['enseigne', 'siret','code_naf','numero_tva','telephone','adresse','code_postal','ville','pays','nombre_postes', 'duree_utilisation', 'site']);
+
         $data['licence'] = strtoupper(str_random(8));
         while (Licence::where('licence', $data['licence'])->count() > 0) {
             $data['licence'] = strtoupper(str_random(8));
@@ -64,6 +65,7 @@ class LicenceController extends Controller
         if ($user->role == 'admin') {
             $data['etat'] = 1;
         }
+
         $licence = Licence::create($data);
 
         if ($user->role != 'admin') {
@@ -160,7 +162,8 @@ class LicenceController extends Controller
         $licence = Licence::find($id);
         $this->authorize('update', $licence);
 
-        $data = $request->only(['enseigne', 'siret', 'nombre_postes', 'duree_utilisation', 'site']);
+        $data = $request->only(['enseigne', 'siret','code_naf','numero_tva','telephone','adresse','code_postal','ville','pays','nombre_postes', 'duree_utilisation', 'site']);
+
         $data['duree_utilisation'] = (empty($data['duree_utilisation'])) ? NULL : $data['duree_utilisation'];
         $data['code_licence'] = strtoupper(str_random(8));
         $licence->update($data);
