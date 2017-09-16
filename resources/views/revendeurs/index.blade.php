@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Liste des revendeurs</div>
+                    <div class="panel-heading">
+                        Liste des revendeurs
+                        <a href="{{ route('revendeurs.index', ['trash' => 1]) }}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
+                    </div>
 
                     <div class="panel-body">
                         <div class="form-group">
@@ -54,7 +57,8 @@
             $('.dtable').dataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
-                }
+                },
+                "pageLength": 100
             });
         });
     </script>

@@ -5,7 +5,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Liste des licences</div>
+                    <div class="panel-heading">
+                        Liste des licences
+                        <a href="{{ route('licences.index', ['trash' => 1]) }}"
+                           class="btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i> Corbeille</a>
+                    </div>
 
                     <div class="panel-body">
 
@@ -19,9 +23,10 @@
                                 <th>#</th>
                                 <th>Revendeur</th>
                                 <th>Enseigne</th>
-                                <th>Durée d'utilisation</th>
                                 <th>Licence</th>
                                 <th>Code Licence</th>
+                                <th>Site</th>
+                                <th>Expiration</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -35,12 +40,15 @@
                                         <td>CleaNetwork</td>
                                     @endif
                                     <td>{{ $e->enseigne }}</td>
-                                    <td>{{ ($e->duree_utilisation) ? $e->duree_utilisation . ' mois' : 'Indéterminée' }}</td>
                                     <td>{{ $e->licence }}</td>
                                     <td>{{ $e->code_licence }}</td>
+                                    <td>{{ (!empty($e->site)) ? $e->site : '-' }}</td>
+                                    <td>{{ $e->date_expiration }}</td>
                                     <td>
                                         <a href="{{ route('licences.show', $e) }}"
-                                           class="btn btn-xs btn-default"><i class="fa fa-file-text-o"></i></a>
+                                           class="btn btn-xs btn-primary"><i class="fa fa-file-text-o"></i></a>
+                                        <a href="{{ route('licences.edit', $e) }}"
+                                           class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                                         @if(!$e->etat)
                                             <a href="{{ route('licences.confirmer', [$e->id, 'token' => csrf_token()]) }}"
                                                class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
@@ -61,11 +69,17 @@
 @section('scripts')
     <script>
         $(function () {
-            $('.dtable').dataTable({
+            $('.dtable').DataTable({
                 "language": {
                     "url": "{{ asset('js/French.json') }}"
-                }
+                },
+                "pageLength": 100,
+                "order": [[7, "desc"]],
+                dom: 'Bfrtip',
+                buttons: [
+                    'excelHtml5', 'pdfHtml5'
+                ]
             });
-        });
+        })
     </script>
 @endsection

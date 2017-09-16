@@ -26,7 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('revendeurs/licences', ['as' => 'revendeurs.licences', 'uses' => 'RevendeursController@licences']);
     Route::get('licences/{id}/confirmer', 'LicenceController@confirmer')->name('licences.confirmer');
+    Route::get('licences/{id}/restore', 'LicenceController@restore')->name('licences.restore');
     Route::resource('licences', 'LicenceController');
+    Route::get('revendeurs/{id}/restore', 'RevendeursController@restore')->name('revendeurs.restore');
     Route::resource('revendeurs', 'RevendeursController');
 
 });

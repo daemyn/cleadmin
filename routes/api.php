@@ -33,5 +33,9 @@ Route::post('licences', function (Request $request) {
 
 Route::get('licences', function (Request $request) {
     $licence = \App\Licence::where('licence', $request->licence)->where('code_licence', $request->code)->first();
-    return response()->json($licence);
+    if($licence){
+        return response()->json($licence);
+    }else{
+        return response('not found', 404);
+    }
 });

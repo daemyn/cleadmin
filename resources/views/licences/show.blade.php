@@ -18,6 +18,35 @@
                                 <td>{{ $licence->siret}}</td>
                             </tr>
                             <tr>
+                                <td>Code naf</td>
+                                <td>{{ $licence->code_naf}}</td>
+                            </tr>
+                            <tr>
+                                <td>Numéro tva</td>
+                                <td>{{ $licence->numero_tva}}</td>
+                            </tr>
+                            <tr>
+                                <td>Téléphone</td>
+                                <td>{{ $licence->telephone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Adresse</td>
+                                <td>{{ $licence->adresse}}</td>
+                            </tr>
+                            <tr>
+                                <td>Code postal</td>
+                                <td>{{ $licence->code_postal}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ville</td>
+                                <td>{{ $licence->ville}}</td>
+                            </tr>
+                            <tr>
+                                <td>Pays</td>
+                                <td>{{ $licence->pays}}</td>
+                            </tr>
+
+                            <tr>
                                 <td>Nombre de postes</td>
                                 <td>{{ $licence->nombre_postes }}</td>
                             </tr>
@@ -36,6 +65,10 @@
                             <tr>
                                 <td>Date d'activation</td>
                                 <td>{{ $licence->created_at->format('d-m-Y H:i') }}</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Date d'expiration</td>
+                                <td>{{ $licence->date_expiration }}</td>
                             </tr>
                             <tr>
                                 <td>Etat</td>
@@ -56,7 +89,8 @@
                         </table>
 
                         @if(Auth::user()->role == 'admin')
-                            <form action="{{ route('licences.destroy', $licence->id) }}" method="post" class="form-delete">
+                            <form action="{{ route('licences.destroy', $licence->id) }}" method="post"
+                                  class="form-delete">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <button class="btn btn-danger"><i class="fa fa-trash"></i> Supprimer</button>
